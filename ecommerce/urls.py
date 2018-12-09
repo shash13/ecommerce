@@ -1,21 +1,18 @@
-"""ecommerce URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/1.11/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.conf.urls import url, include
-    2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
-"""
-from django.conf.urls import url
+from django.conf.urls import include, url
 from django.contrib import admin
+from shop import views as shop_views
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-]
+    # Examples:
+    # url(r'^$', 'ecommerce.views.home', name='home'),
+    # url(r'^blog/', include('blog.urls')),
+
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^index/', shop_views.index, name='index'),
+    url(r'^homepage/', shop_views.homepage, name='homepage'),
+    url(r'^list/', shop_views.product_list_view, name='list'),
+    url(r'^listclass/', shop_views.ProductListView.as_view(), name='list2'),
+    url(r'^listdetail/(?P<pk>\d+)/$', shop_views.product_detail_view, name='list'),
+   # url(r'^listdetailclass/(?P<pk>\d+)/$', shop_views.ProductDetailView.as_view(), name='list2'),
+    url(r'^contact/', shop_views.contact, name='contact'),
+ ]
